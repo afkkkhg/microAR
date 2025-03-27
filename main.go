@@ -8,17 +8,17 @@ import (
 
 func main() {
 	app := fiber.New()
-	// Адреса для групп
+	// адреса для групп
 	app.Post("/api/v1/group", GroupCreate)
 	app.Get("/api/v1/group", GroupRead)
 	app.Put("/api/v1/group", GroupChange)
 	app.Delete("/api/v1/group", GroupDelete)
-	// Для контактов
+	// адрес для контактов
 	app.Get("api/v1/contact", ContactRead)
 	app.Post("api/v1/contact", ContactCreate)
 	app.Put("api/v1/contact", ContactUpdate)
 	app.Delete("api/v1/contact", ContactDelete)
-
+	// порт сервера
 	if err := app.Listen(":6080"); err != nil {
 		log.Fatal(err)
 	}

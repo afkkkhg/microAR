@@ -1,4 +1,4 @@
-# Компиляция приложения в контейнере, если нет Golang'а
+# компиляция приложения в контейнер
 FROM golang:1.23.7-alpine3.21 AS builder
 WORKDIR /appsource
 COPY ./main.go ./
@@ -9,7 +9,7 @@ COPY ./go.mod ./
 RUN go mod tidy
 RUN go build -o app .
 
-# Само приложение
+# само приложение
 FROM alpine:3.21
 WORKDIR /myapp
 COPY --from=builder /appsource/app ./
