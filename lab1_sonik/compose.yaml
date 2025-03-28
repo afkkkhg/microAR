@@ -1,0 +1,19 @@
+services:
+  balancerNginx:
+    image: nginx:alpine3.21
+    ports:
+      - "6080:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+  app_in_container-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  app_in_container-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  app_in_container-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
