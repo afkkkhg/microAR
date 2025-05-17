@@ -1,0 +1,34 @@
+services:
+  core-service:
+    build:
+      context: .
+      dockerfile: core.dockerfile
+  math-service:
+    build:
+      context: .
+      dockerfile: math.dockerfile
+
+  storage-service:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    expose:
+      - "80"
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - DB_ADDR=${DB_ADDR}
+
+  balancer:
+    image: nginx:mainline-alpine3.21
+    volumes:
+      - ./nginx:/etc/nginx/templates
+      - ./frontend:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - core-service
+      - math-service
+      - storage-service
+
